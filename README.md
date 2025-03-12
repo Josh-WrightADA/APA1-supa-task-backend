@@ -78,23 +78,102 @@ The backend infrastructure is currently in development with the following compon
 - notes: TEXT
 - created_at: TIMESTAMP
 
-## API Endpoints (Planned)
+## API Endpoints
 
-### Caffeine Tracking
+### Caffeine Tracking API
 
-- `GET /functions/v1/caffeineTimer` - Get all caffeine entries for the authenticated user
-- `GET /functions/v1/caffeineTimer/:id` - Get a specific caffeine entry
-- `POST /functions/v1/caffeineTimer` - Create a new caffeine entry
-- `PUT /functions/v1/caffeineTimer` - Update an existing caffeine entry
-- `DELETE /functions/v1/caffeineTimer` - Delete a caffeine entry
+#### GET `/api/caffeine`
+- **Description**: Retrieves all caffeine entries for the authenticated user
+- **Auth Required**: Yes
+- **Response**: Array of caffeine entries ordered by consumed_at (descending)
 
-### Wellness Check-ins
+#### GET `/api/caffeine/:id`
+- **Description**: Retrieves a specific caffeine entry
+- **Auth Required**: Yes
+- **Parameters**: id - UUID of the entry
+- **Response**: Single caffeine entry object
 
-- `GET /functions/v1/wellnessCheckin` - Get all wellness check-ins for the authenticated user
-- `GET /functions/v1/wellnessCheckin/:id` - Get a specific wellness check-in
-- `POST /functions/v1/wellnessCheckin` - Create a new wellness check-in
-- `PUT /functions/v1/wellnessCheckin` - Update an existing wellness check-in
-- `DELETE /functions/v1/wellnessCheckin` - Delete a wellness check-in
+#### POST `/api/caffeine`
+- **Description**: Creates a new caffeine entry
+- **Auth Required**: Yes
+- **Request Body**: 
+  ```json
+  {
+    "amount": 100,
+    "type": "coffee",
+    "consumed_at": "2023-06-20T10:30:00Z"
+  }
+  ```
+- **Response**: Created caffeine entry object
+
+#### PUT `/api/caffeine/:id`
+- **Description**: Updates an existing caffeine entry
+- **Auth Required**: Yes
+- **Parameters**: id - UUID of the entry
+- **Request Body**: 
+  ```json
+  {
+    "amount": 150,
+    "type": "espresso",
+    "consumed_at": "2023-06-20T10:30:00Z"
+  }
+  ```
+- **Response**: Updated caffeine entry object
+
+#### DELETE `/api/caffeine/:id`
+- **Description**: Deletes a caffeine entry
+- **Auth Required**: Yes
+- **Parameters**: id - UUID of the entry
+- **Response**: Success confirmation
+
+### Wellness Checkin API
+
+#### GET `/api/wellness`
+- **Description**: Retrieves all wellness check-ins for the authenticated user
+- **Auth Required**: Yes
+- **Response**: Array of wellness check-ins ordered by created_at (descending)
+
+#### GET `/api/wellness/:id`
+- **Description**: Retrieves a specific wellness check-in
+- **Auth Required**: Yes
+- **Parameters**: id - UUID of the check-in
+- **Response**: Single wellness check-in object
+
+#### POST `/api/wellness`
+- **Description**: Creates a new wellness check-in
+- **Auth Required**: Yes
+- **Request Body**: 
+  ```json
+  {
+    "energy_level": 4,
+    "mood": 3,
+    "caffeine_craving": 2,
+    "notes": "Feeling good today with less caffeine"
+  }
+  ```
+- **Response**: Created wellness check-in object
+
+#### PUT `/api/wellness/:id`
+- **Description**: Updates an existing wellness check-in
+- **Auth Required**: Yes
+- **Parameters**: id - UUID of the check-in
+- **Request Body**: 
+  ```json
+  {
+    "energy_level": 3,
+    "mood": 4,
+    "caffeine_craving": 2,
+    "notes": "Updated notes"
+  }
+  ```
+- **Response**: Updated wellness check-in object
+
+#### DELETE `/api/wellness/:id`
+- **Description**: Deletes a wellness check-in
+- **Auth Required**: Yes
+- **Parameters**: id - UUID of the check-in
+- **Response**: Success confirmation
+
 
 ### Statistics and Analysis
 
